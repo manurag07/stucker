@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_presence_of :time_zone
+
+  has_many :connections, dependent: :destroy
 end
