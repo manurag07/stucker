@@ -1,0 +1,29 @@
+class PostsController < ApplicationController
+
+  def new
+    if current_user.connections.any?
+      @post = Post.new
+    else
+      redirect_ to dashbosrd_path, notice: 'Please connect to a social network'
+    end
+  end
+
+  def create
+    @post = current_user.posts.new(post_params)
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to dashboard_path, notice: 'post created successfully'}
+      else
+        format.html { render :new }
+      end
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:content, :sheduled_at, :state, :user_id, :facebook, :twitter)
+  end
+
+end
