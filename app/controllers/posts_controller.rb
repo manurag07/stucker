@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     if current_user.connections.any?
       @post = Post.new
     else
-      redirect_ to dashbosrd_path, notice: 'Please connect to a social network'
+      redirect_to dashboard_path, notice: 'Please connect to a social network'
     end
   end
 
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :sheduled_at, :state, :user_id, :facebook, :twitter)
+    params.require(:post).permit(:content, :scheduled_at, :state, :user_id, :facebook, :twitter)
   end
 
 end

@@ -80,3 +80,16 @@ gem 'simple_form'
 gem 'devise'
 
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+
+gem 'validates_timeliness', '~> 3.0'
+
+gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
+gem 'momentjs-rails'
+
+gem 'twitter'
+
+gem 'delayed_job_active_record'
+
+gem 'delayed-web', github: 'thebestday/delayed-web'
+
+gem 'will_paginate'
