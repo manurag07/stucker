@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
+  before_action :set_post, only: [:cancel]
 
   def new
     if current_user.connections.any?
@@ -13,17 +16,25 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to dashboard_path, notice: 'post created successfully'}
+        format.html { redirect_to dashboard_path, notice: 'post created successfully' }
       else
         format.html { render :new }
       end
     end
   end
 
+  def cancel
+    @post.update_attributes(state: 'canceled')
+    redirect_to dashboard_path, notice: 'Post canceled'
+  end
+
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:content, :scheduled_at, :state, :user_id, :facebook, :twitter)
   end
-
 end

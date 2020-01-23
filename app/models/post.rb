@@ -2,7 +2,8 @@
 
 class Post < ApplicationRecord
   belongs_to :user
-  validates_presence_of :content, length: { maximum: 140, minimum: 10 }
+  validates :content, length: { in: 10..140 }
+  validates :scheduled_at, presence: true
   after_create :schedule
   # validates_datetime :scheduled_at, on: :create, on_or_after: Time.zone.now
 
@@ -17,10 +18,12 @@ class Post < ApplicationRecord
   end
 
   def display
-    to_twitter if twitter == true
-    self.update_attributes(state: 'posted')
+    unless state == 'cancel'
+      to_twitter if twitter == true
+      update_attributes(state: 'posted')
+    end
   rescue StandardError => e
-    self.update_attributes(state: 'posting error', error: e.message)
+    update_attributes(state: 'posting error', error: e.message)
   end
 
   def schedule

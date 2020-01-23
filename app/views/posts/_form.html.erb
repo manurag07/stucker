@@ -3,7 +3,7 @@
   <div class="form-imputs">
     <%= f.input :content, required: true, maxlength: 140%>
     <p>This post is sheduled at<b> <%= Time.zone.name %> time</b></p>
-    <%= f.input :scheduled_at, required: true, as: :datetime_picker %>
+    <%= f.input :scheduled_at, required: true, as: :datetime_picker, input_html: {data: {date_options: {defaultDate: DateTime.now}}}  %>
   </div>
 
   <div class="form-inputs">
